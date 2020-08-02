@@ -4,17 +4,16 @@
 # @Author  : Ropon
 # @File    : login.py
 
-from flask import Blueprint
-from flask_restful import Api, Resource, reqparse, inputs, fields, marshal_with
-from flask_restful.utils import OrderedDict
+from flask import Blueprint, views, jsonify, request
+from flask_restful import Api, Resource, reqparse, inputs, fields, marshal_with, output_json
 
 from api.models import User, Token
 from api.utils.response import api_abort
 
 login_bp = Blueprint("login_bp", __name__, url_prefix="/api/v1")
 api = Api(login_bp)
-#解决中文乱码
-# api.representations = OrderedDict({'application/json;charset=utf-8': output_json})
+
+# api.representations = {'application/json;charset=utf-8': output_json}
 
 parser = reqparse.RequestParser()
 parser.add_argument("username", type=inputs.regex(r"^[a-z][a-z0-9]{3,5}$"), required=True, help="请输入4~8位字母数字用户名",
@@ -46,10 +45,11 @@ user_fields = {
 class LoginView(Resource):
     @marshal_with(user_fields)
     def get(self):
+        print(request.headers)
         users = User.query.all()
         # print(users)
         return users
-        # return {"code":0 ,"msg": "中文测试"}
+        # return {"code": 0, "msg": "中文测试"}
 
     def post(self):
         args = parser.parse_args()
@@ -58,3 +58,10 @@ class LoginView(Resource):
 
 
 api.add_resource(LoginView, "/login")
+
+# flask 原生
+# class LoginView(views.MethodView):
+#     def get(self):
+#         return {"code": 0, "msg": "中文测试"}
+#
+# login_bp.add_url_rule("/login", view_func=LoginView.as_view("login"))
