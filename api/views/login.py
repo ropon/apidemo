@@ -17,9 +17,9 @@ api.representations = {'application/json;charset=utf-8': output_json, 'applicati
 
 parser = reqparse.RequestParser()
 parser.add_argument("username", type=inputs.regex(r"^[a-z][a-z0-9]{3,5}$"), required=True, help="请输入4~8位字母数字用户名",
-                    location=["form"])
-parser.add_argument("password", type=inputs.regex(r"^[a-z][a-z0-9]{5,7}$"), required=True, help="请输入6~8位字母密码",
-                    location=["form"])
+                    location=["form", "json"])
+parser.add_argument("password", type=inputs.regex(r"^[a-z][a-z0-9]{5,7}$"), required=True, help="请输入6~8位字母及数字密码",
+                    location=["form", "json"])
 
 
 class UserStatus(fields.Raw):
