@@ -8,6 +8,7 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from ext import db
 from api import create_app, models
+from api.models import *
 
 # 迁移时模型必须导入
 

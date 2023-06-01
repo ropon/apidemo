@@ -4,14 +4,14 @@
 # @Author  : Ropon
 # @File    : config.py
 
-import os
+import pymysql
 
 
 class Config(object):
     DEBUG = False
-    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://xxx:xxx@xxx.com:3306/testdb1?charset=utf8"
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                                          'panel.db')
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:123456@192.168.1.210:3306/ropontest?charset=utf8"
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    #                                                       'panel.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JSON_AS_ASCII = False
     JSONIFY_MIMETYPE = "application/json;charset=utf-8"
